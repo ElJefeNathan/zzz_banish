@@ -1,4 +1,4 @@
-FROM openjdk:latest
-COPY ./target/classes/com /napier/devops
+FROM openjdk:24
+COPY ./target/classes/com /tmp/com
 WORKDIR /tmp
-ENTRYPOINT ["java", "com.napier.devops.App", "com.napier.devops.Kira"]
+ENTRYPOINT ["java", "com.napier.devops.Kira"]
