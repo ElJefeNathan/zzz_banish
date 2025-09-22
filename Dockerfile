@@ -1,4 +1,4 @@
 FROM openjdk:24
 COPY ./target/classes/com /tmp/com
 WORKDIR /tmp
-ENTRYPOINT ["java", "com.napier.devops.Kira"]
+ENTRYPOINT ["java", "com.napier.devops.App"]
