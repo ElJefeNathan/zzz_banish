@@ -5,4 +5,4 @@
 [![Releases](https://img.shields.io/github/release/ElJefeNathan/zzz_banish/all.svg?style=flat-square)](https://github.com/ElJefeNathan/zzz_banish/releases)
 
 # DevOps
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/ElJefeNathan/zzz_banish/<Hello world action>/<develop>?style=flat-square)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/ElJefeNathan/zzz_banish/Hello%20world%20action?branch=develop?style=flat-square)
