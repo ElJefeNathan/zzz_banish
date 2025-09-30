@@ -15,4 +15,3 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     ports:
       - "33060:3306"
-          blah blah blah
