@@ -3,11 +3,11 @@ on:
   push:
     branches:
       - main
-
+      - develop
 jobs:
   UnitTests:
     name: Unit Tests
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -17,13 +17,13 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '24'
-          distribution: 'adopt'
+          distribution: 'temurin'
       - name: Unit Tests
         run: mvn -Dtest=com.napier.devops.AppTest test
 
   IntegrationTests:
     name: Integration Tests
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,25 +33,24 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '24'
-          distribution: 'adopt'
-      - name: Integration Tests and CodeCov
+          distribution: 'temurin'
+      - name: Integration Tests
         run: |
-          docker build -t database ./db 
-          docker run --name employees -dp 33060:3306 database
-          mvn -Dtest=com.napier.devops.AppIntegrationTest test          
-          docker stop employees
-          docker rm employees
-          docker image rm database
+          docker compose up -d db
+          mvn -Dtest=com.napier.devops.AppIntegrationTest test
+      - name: Shutdown
+        run: docker compose down
       - name: CodeCov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v5
         with:
-          # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          #token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
           directory: ./target/site/jacoco
           flags: Integration Tests # optional
           verbose: true # optional (default = false)
+
   build:
-    name: Build and Start Using docker compose
-    runs-on: ubuntu-22.04
+    name: Build and Start Using docker-compose
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -61,7 +60,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '24'
-          distribution: 'adopt'
+          distribution: 'temurin'
       - name: Package and Run docker compose
         run: |
           mvn package -DskipTests
