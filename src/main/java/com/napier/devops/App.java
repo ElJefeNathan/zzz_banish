@@ -2,7 +2,7 @@ package com.napier.devops;
 
 import java.sql.*;
 import java.util.ArrayList;
-blah blah blah
+
 public class App
 {
     public static void main(String[] args) {
